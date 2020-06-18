@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: photo-filter
+    app.kubernetes.io/instance: picture-upload-demo
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: picture-upload
+    app.kubernetes.io/managed-by: kubectl
+  name: photo-filter-deployment
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: photo-filter
+    spec:
+      containers:
+        - image: 629054125090.dkr.ecr.us-east-1.amazonaws.com/photo-filter:latest
+          imagePullPolicy: Always
+          name: photo-filter
+          ports:
+            - containerPort: 3002
